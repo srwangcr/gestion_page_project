@@ -92,7 +92,9 @@ const testConnection = async () => {
     return false;
   }
 };
-
+ssl: env.NODE_ENV === 'production' ? {
+  rejectUnauthorized: false
+} : false
 module.exports = {
   pool,
   query,

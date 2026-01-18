@@ -12,11 +12,14 @@ class Order {
    * @returns {Object} Orden creada
    */
   static async create({ name, description, quantity, supplier }, userId) {
+    // Asegurar que supplier sea un entero válido o null
+    const supplierId = supplier && !isNaN(parseInt(supplier)) ? parseInt(supplier) : null;
+    
     const result = await query(
       `INSERT INTO orders (name, description, quantity, supplier_id, status, user_id) 
        VALUES ($1, $2, $3, $4, 'pendiente', $5) 
        RETURNING *`,
-      [name, description || null, quantity || 1, supplier || null, userId]
+      [name, description || null, quantity || 1, supplierId, userId]
     );
     return result.rows[0];
   }
@@ -83,6 +86,11 @@ class Order {
    * @returns {Object|null} Orden actualizada o null
    */
   static async update(id, { name, description, quantity, supplier, status }, userId) {
+    // Asegurar que supplier sea un entero válido o undefined (para no actualizar)
+    const supplierId = supplier !== undefined 
+      ? (supplier && !isNaN(parseInt(supplier)) ? parseInt(supplier) : null)
+      : undefined;
+    
     const result = await query(
       `UPDATE orders 
        SET name = COALESCE($1, name),
@@ -93,7 +101,7 @@ class Order {
            updated_at = NOW()
        WHERE id = $6 AND user_id = $7
        RETURNING *`,
-      [name, description, quantity, supplier, status, id, userId]
+      [name, description, quantity, supplierId, status, id, userId]
     );
     return result.rows[0] || null;
   }

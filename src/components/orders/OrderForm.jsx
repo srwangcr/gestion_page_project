@@ -1,20 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import api from '../../services/api';
 import './OrderForm.css';
 
 const OrderForm = ({ onSubmit, initialData = null }) => {
   const [name, setName] = useState(initialData?.name || '');
   const [description, setDescription] = useState(initialData?.description || '');
   const [quantity, setQuantity] = useState(initialData?.quantity || 1);
-  const [supplier, setSupplier] = useState(initialData?.supplier || '');
+  const [supplierId, setSupplierId] = useState(initialData?.supplier_id || '');
+  const [suppliers, setSuppliers] = useState([]);
+
+  // Cargar lista de proveedores
+  useEffect(() => {
+    const loadSuppliers = async () => {
+      try {
+        const response = await api.get('/suppliers');
+        setSuppliers(response.suppliers || []);
+      } catch (err) {
+        console.error('Error cargando proveedores:', err);
+      }
+    };
+    loadSuppliers();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({ name, description, quantity, supplier });
+    onSubmit({ 
+      name, 
+      description, 
+      quantity: parseInt(quantity), 
+      supplier: supplierId ? parseInt(supplierId) : null 
+    });
     // Limpiar formulario
     setName('');
     setDescription('');
     setQuantity(1);
-    setSupplier('');
+    setSupplierId('');
   };
 
   return (
@@ -48,21 +68,24 @@ const OrderForm = ({ onSubmit, initialData = null }) => {
           type="number"
           id="quantity"
           value={quantity}
-          onChange={(e) => setQuantity(parseInt(e.target.value))}
+          onChange={(e) => setQuantity(e.target.value)}
           min="1"
           required
         />
       </div>
 
       <div className="form-group">
-        <label htmlFor="supplier">Proveedor</label>
-        <input
-          type="text"
+        <label htmlFor="supplier">Proveedor (opcional)</label>
+        <select
           id="supplier"
-          value={supplier}
-          onChange={(e) => setSupplier(e.target.value)}
-          placeholder="Nombre del proveedor"
-        />
+          value={supplierId}
+          onChange={(e) => setSupplierId(e.target.value)}
+        >
+          <option value="">-- Sin proveedor --</option>
+          {suppliers.map(s => (
+            <option key={s.id} value={s.id}>{s.name}</option>
+          ))}
+        </select>
       </div>
 
       <button type="submit" className="btn-submit">

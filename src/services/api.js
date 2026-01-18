@@ -3,8 +3,8 @@
  * BACKEND: Cambiar esta URL según tu entorno
  */
 const API_BASE_URL = import.meta.env.VITE_API_URL 
-  ? `${import.meta.env.VITE_API_URL}/api`   // ← agrega /api si tu backend lo necesita
-  : (import.meta.env.DEV ? 'http://localhost:3000/api' : ''); // seguridad extra
+  ? import.meta.env.VITE_API_URL 
+  : (import.meta.env.DEV ? 'http://localhost:3000/api' : '');
 
 /**
  * Configuración de headers por defecto

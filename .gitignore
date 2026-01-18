@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+backend/src/.env.example
+backend/src/.env
+backend/DOCUMENTACION_BACKEND.md
+backend/src/.env.example
+backend/src/.env
+.gitignore

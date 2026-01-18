@@ -61,6 +61,21 @@
   background-color: #5d4037;
 }
 
+.register-container button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+.register-container .error-message {
+  background-color: #4a1a1a;
+  color: #ff6b6b;
+  padding: 12px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+  border: 1px solid #ff6b6b;
+}
+
 .register-container .login-link {
   text-align: center;
   margin-top: 20px;

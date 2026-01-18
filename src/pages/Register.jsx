@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import api from '../services/api';
 import './Register.css';
 
 const Register = () => {
@@ -7,20 +9,47 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+
     if (password !== confirmPassword) {
-      alert('Las contraseñas no coinciden');
+      setError('Las contraseñas no coinciden');
       return;
     }
-    // Lógica para manejar el registro - conectar con backend
-    console.log('Registrar usuario con:', { name, email, password });
+
+    if (password.length < 6) {
+      setError('La contraseña debe tener al menos 6 caracteres');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await api.post('/auth/register', { name, email, password });
+      
+      if (response.token && response.user) {
+        login(response.user, response.token);
+        navigate('/');
+      }
+    } catch (err) {
+      setError(err.message || 'Error al registrar usuario');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="register-container">
       <h1>Registro</h1>
+      
+      {error && <div className="error-message">{error}</div>}
+      
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Nombre</label>
         <input
@@ -62,7 +91,9 @@ const Register = () => {
           required
         />
 
-        <button type="submit">Registrarse</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Registrando...' : 'Registrarse'}
+        </button>
       </form>
       <p className="login-link">
         ¿Ya tienes cuenta? <Link to="/login">Inicia sesión</Link>

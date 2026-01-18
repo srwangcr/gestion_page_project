@@ -1,20 +1,42 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
+import api from '../services/api';
 import './Login.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Lógica para manejar el inicio de sesión - conectar con backend
-    console.log('Iniciar sesión con:', { email, password });
+    setError('');
+    setLoading(true);
+
+    try {
+      const response = await api.post('/auth/login', { email, password });
+      
+      if (response.token && response.user) {
+        login(response.user, response.token);
+        navigate('/');
+      }
+    } catch (err) {
+      setError(err.message || 'Error al iniciar sesión');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="login-container">
       <h1>Iniciar Sesión</h1>
+      
+      {error && <div className="error-message">{error}</div>}
+      
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">Correo Electrónico</label>
         <input
@@ -36,7 +58,9 @@ const Login = () => {
           required
         />
 
-        <button type="submit">Iniciar Sesión</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Cargando...' : 'Iniciar Sesión'}
+        </button>
       </form>
       <p className="register-link">
         ¿No tienes cuenta? <Link to="/register">Regístrate</Link>

@@ -6,7 +6,14 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-# ...existing code...
+
+# Dependencias
+node_modules
+
+# Build
+dist
+dist-ssr
+*.local
 
 # Variables de entorno
 .env
@@ -14,13 +21,7 @@ lerna-debug.log*
 .env.*.local
 backend/src/.env
 
-# ...existing code...
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
+# Editor
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -30,9 +31,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-backend/src/.env.example
-backend/src/.env
-backend/DOCUMENTACION_BACKEND.md
-backend/src/.env.example
-backend/src/.env
-.gitignore

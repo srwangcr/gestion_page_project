@@ -22,5 +22,5 @@ module.exports = {
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '24h',
   
   // CORS
-  CORS_ORIGIN: process.env.CORS_ORIGIN || 'http://localhost:5173'
+  CORS_ORIGIN: process.env.CORS_ORIGIN || '*'
 };

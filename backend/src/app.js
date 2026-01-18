@@ -20,8 +20,10 @@ const app = express();
 // Middlewares de seguridad y utilidad
 app.use(helmet());
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
-  credentials: true
+  origin: "*",                    // ← permite TODO (solo para pruebas!)
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: false              // credentials no funciona con origin: "*"
 }));
 app.use(morgan('dev'));
 

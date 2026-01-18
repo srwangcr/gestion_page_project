@@ -173,7 +173,7 @@ JWT_SECRET=tu_secreto_super_seguro_minimo_32_caracteres
 JWT_EXPIRES_IN=24h
 
 # CORS (cambiar según el puerto del frontend)
-CORS_ORIGIN=http://localhost:5173
+CORS_ORIGIN=*
 ```
 
 ### 5. Configurar base de datos
@@ -213,7 +213,7 @@ npm run dev
 ## 💻 Uso
 
 ### Acceder a la aplicación
-- **Frontend:** http://localhost:5173
+- **Frontend:** http://localhost:5173 (desarrollo) o tu dominio de producción
 - **Backend API:** http://localhost:3000
 - **Health Check:** http://localhost:3000/api/health
 

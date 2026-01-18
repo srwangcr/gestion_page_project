@@ -467,7 +467,7 @@ El servidor estará disponible en `http://localhost:3000`
 | `DB_PASSWORD` | Contraseña de PostgreSQL | `password` |
 | `JWT_SECRET` | Clave secreta para JWT | `mi_clave_super_secreta_32chars` |
 | `JWT_EXPIRES_IN` | Duración del token | `7d` |
-| `CORS_ORIGIN` | Origen permitido CORS | `http://localhost:5173` |
+| `CORS_ORIGIN` | Origen permitido CORS | `*` (todos) o URL específica |
 
 ---
 

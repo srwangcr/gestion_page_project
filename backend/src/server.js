@@ -15,33 +15,33 @@ const PORT = env.PORT;
 const testDatabaseConnection = async () => {
   try {
     const result = await pool.query('SELECT NOW()');
-    console.log('✅ Conexión a PostgreSQL exitosa');
+    console.log(' Conexión a PostgreSQL exitosa');
     console.log(`   Hora del servidor DB: ${result.rows[0].now}`);
     return true;
   } catch (error) {
-    console.error('❌ Error conectando a PostgreSQL:', error.message);
+    console.error(' Error conectando a PostgreSQL:', error.message);
     return false;
   }
 };
 
 // Iniciar servidor
 const startServer = async () => {
-  console.log('\n🚀 Iniciando servidor...\n');
+  console.log('\n Iniciando servidor...\n');
 
   // Probar conexión a la base de datos
   const dbConnected = await testDatabaseConnection();
   
   if (!dbConnected) {
-    console.log('\n⚠️  El servidor se iniciará sin conexión a la base de datos');
+    console.log('\n  El servidor se iniciará sin conexión a la base de datos');
     console.log('   Algunas funcionalidades podrían no estar disponibles\n');
   }
 
   // Iniciar servidor HTTP
   app.listen(PORT, () => {
-    console.log(`\n✅ Servidor corriendo en puerto ${PORT}`);
+    console.log(`\n Servidor corriendo en puerto ${PORT}`);
     console.log(`   URL: http://localhost:${PORT}`);
     console.log(`   Modo: ${env.NODE_ENV}`);
-    console.log(`\n📋 Endpoints disponibles:`);
+    console.log(`\n Endpoints disponibles:`);
     console.log(`   - GET  /api/health`);
     console.log(`   - POST /api/auth/register`);
     console.log(`   - POST /api/auth/login`);
@@ -54,20 +54,20 @@ const startServer = async () => {
 
 // Manejar errores no capturados
 process.on('unhandledRejection', (err) => {
-  console.error('❌ Error no manejado:', err.message);
+  console.error(' Error no manejado:', err.message);
   process.exit(1);
 });
 
 process.on('uncaughtException', (err) => {
-  console.error('❌ Excepción no capturada:', err.message);
+  console.error(' Excepción no capturada:', err.message);
   process.exit(1);
 });
 
 // Manejar cierre graceful
 process.on('SIGTERM', async () => {
-  console.log('\n👋 Cerrando servidor...');
+  console.log('\n Cerrando servidor...');
   await pool.end();
-  console.log('✅ Conexiones cerradas');
+  console.log(' Conexiones cerradas');
   process.exit(0);
 });
 

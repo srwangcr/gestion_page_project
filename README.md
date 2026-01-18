@@ -138,8 +138,8 @@ my_girl/
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tu-usuario/my_girl.git
-cd my_girl
+git clone https://github.com/srwangcr/gestion_page_project.git
+cd gestion_page_project
 ```
 
 ### 2. Instalar dependencias del Frontend
@@ -164,25 +164,37 @@ NODE_ENV=development
 # Base de datos
 DB_HOST=localhost
 DB_PORT=5432
-DB_NAME=my_girl_db
+DB_NAME=orders_db
 DB_USER=tu_usuario
 DB_PASSWORD=tu_password
 
 # JWT
-JWT_SECRET=tu_secreto_super_seguro
+JWT_SECRET=tu_secreto_super_seguro_minimo_32_caracteres
 JWT_EXPIRES_IN=24h
+
+# CORS (cambiar según el puerto del frontend)
+CORS_ORIGIN=http://localhost:5173
 ```
 
 ### 5. Configurar base de datos
+
+**Opción A - Con usuario postgres:**
 ```bash
 # Crear la base de datos
-psql -U postgres -c "CREATE DATABASE my_girl_db;"
+sudo -u postgres psql -c "CREATE DATABASE orders_db;"
 
 # Ejecutar migraciones
-psql -U postgres -d my_girl_db -f backend/src/db/migrations/001_initial_schema.sql
+cat backend/src/db/migrations/001_initial_schema.sql | sudo -u postgres psql -d orders_db
 
 # Cargar datos de prueba (opcional)
-psql -U postgres -d my_girl_db -f backend/src/db/seeds/dev_data.sql
+cat backend/src/db/seeds/dev_data.sql | sudo -u postgres psql -d orders_db
+```
+
+**Opción B - Con tu usuario (si tienes permisos):**
+```bash
+psql -c "CREATE DATABASE orders_db;"
+psql -d orders_db -f backend/src/db/migrations/001_initial_schema.sql
+psql -d orders_db -f backend/src/db/seeds/dev_data.sql
 ```
 
 ### 6. Iniciar la aplicación
@@ -203,12 +215,16 @@ npm run dev
 ### Acceder a la aplicación
 - **Frontend:** http://localhost:5173
 - **Backend API:** http://localhost:3000
+- **Health Check:** http://localhost:3000/api/health
 
 ### Credenciales de prueba
+Si cargaste los datos de prueba (`dev_data.sql`), puedes usar:
 ```
 Email: admin@example.com
-Password: admin123
+Password: password123
 ```
+
+O registra un nuevo usuario desde la aplicación.
 
 ## 🔌 API Endpoints
 
@@ -217,26 +233,35 @@ Password: admin123
 |--------|----------|-------------|
 | `POST` | `/api/auth/register` | Registrar usuario |
 | `POST` | `/api/auth/login` | Iniciar sesión |
-| `GET` | `/api/auth/me` | Obtener perfil |
-| `POST` | `/api/auth/logout` | Cerrar sesión |
+| `GET` | `/api/auth/profile` | Obtener perfil |
+| `PUT` | `/api/auth/profile` | Actualizar perfil |
 
 ### Órdenes
 | Método | Endpoint | Descripción |
 |--------|----------|-------------|
-| `GET` | `/api/orders` | Listar órdenes |
+| `GET` | `/api/orders` | Listar órdenes (paginado) |
+| `GET` | `/api/orders/stats` | Estadísticas de órdenes |
 | `GET` | `/api/orders/:id` | Obtener orden |
 | `POST` | `/api/orders` | Crear orden |
 | `PUT` | `/api/orders/:id` | Actualizar orden |
+| `PATCH` | `/api/orders/:id/status` | Cambiar estado |
 | `DELETE` | `/api/orders/:id` | Eliminar orden |
 
 ### Proveedores
 | Método | Endpoint | Descripción |
 |--------|----------|-------------|
 | `GET` | `/api/suppliers` | Listar proveedores |
+| `GET` | `/api/suppliers/search?q=` | Buscar proveedores |
+| `GET` | `/api/suppliers/count` | Contar proveedores |
 | `GET` | `/api/suppliers/:id` | Obtener proveedor |
 | `POST` | `/api/suppliers` | Crear proveedor |
 | `PUT` | `/api/suppliers/:id` | Actualizar proveedor |
 | `DELETE` | `/api/suppliers/:id` | Eliminar proveedor |
+
+### Health Check
+| Método | Endpoint | Descripción |
+|--------|----------|-------------|
+| `GET` | `/api/health` | Estado del servidor |
 
 ## 🎨 Paleta de Colores
 
@@ -311,13 +336,71 @@ Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para
 
 ## 👤 Autor
 
-**Tu Nombre**
-- GitHub: [@tu-usuario](https://github.com/tu-usuario)
+**srwangcr**
+- GitHub: [@srwangcr](https://github.com/srwangcr)
+
+## 🗄️ Base de Datos
+
+El sistema utiliza **1 base de datos PostgreSQL** con **3 tablas**:
+
+### Diagrama de Tablas
+```
+┌─────────────────┐       ┌─────────────────┐       ┌─────────────────┐
+│     users       │       │    suppliers    │       │     orders      │
+├─────────────────┤       ├─────────────────┤       ├─────────────────┤
+│ id (PK)         │──┐    │ id (PK)         │──┐    │ id (PK)         │
+│ name            │  │    │ user_id (FK)    │◄─┼────│ user_id (FK)    │
+│ email (UNIQUE)  │  │    │ name            │  │    │ supplier_id(FK) │◄┐
+│ password        │  │    │ contact         │  │    │ name            │ │
+│ created_at      │  │    │ email           │  │    │ description     │ │
+│ updated_at      │  │    │ phone           │  │    │ quantity        │ │
+└─────────────────┘  │    │ address         │  │    │ status          │ │
+                     │    │ created_at      │  │    │ created_at      │ │
+                     │    │ updated_at      │  │    │ updated_at      │ │
+                     │    └─────────────────┘  │    └─────────────────┘ │
+                     └─────────────────────────┴───────────────────────┘
+```
+
+### Estados de Órdenes
+- `pendiente` - Orden creada, esperando procesamiento
+- `en_proceso` - Orden siendo procesada
+- `completada` - Orden finalizada exitosamente
+- `cancelada` - Orden cancelada
+
+## 🔒 Seguridad
+
+- **Contraseñas**: Encriptadas con bcrypt (10 salt rounds)
+- **Autenticación**: JWT con expiración configurable
+- **CORS**: Configurado para orígenes específicos
+- **Helmet**: Headers HTTP seguros
+- **Validación**: express-validator en todas las rutas
+
+## 🐛 Solución de Problemas
+
+### Error de CORS
+Si ves errores de CORS, verifica que `CORS_ORIGIN` en `.env` coincida con la URL del frontend.
+
+### Error de conexión a PostgreSQL
+```bash
+# Verificar que PostgreSQL esté corriendo
+sudo systemctl status postgresql
+
+# Verificar conexión
+psql -d orders_db -c "SELECT 1"
+```
+
+### Puerto en uso
+```bash
+# Matar proceso en puerto 3000
+lsof -ti:3000 | xargs -r kill -9
+```
 
 ---
 
 <div align="center">
 
 **Hecho con ❤️ y ☕**
+
+⭐ Si te gustó el proyecto, dale una estrella en GitHub ⭐
 
 </div>

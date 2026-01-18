@@ -4,20 +4,20 @@ import './OrderCard.css';
 const OrderCard = ({ order, onDelete, onUpdateStatus }) => {
   const getStatusClass = (status) => {
     switch (status) {
-      case 'pending': return 'status-pending';
-      case 'processing': return 'status-processing';
-      case 'completed': return 'status-completed';
-      case 'cancelled': return 'status-cancelled';
+      case 'pendiente': return 'status-pending';
+      case 'en_proceso': return 'status-processing';
+      case 'completada': return 'status-completed';
+      case 'cancelada': return 'status-cancelled';
       default: return '';
     }
   };
 
   const getStatusLabel = (status) => {
     switch (status) {
-      case 'pending': return 'Pendiente';
-      case 'processing': return 'En proceso';
-      case 'completed': return 'Completada';
-      case 'cancelled': return 'Cancelada';
+      case 'pendiente': return 'Pendiente';
+      case 'en_proceso': return 'En proceso';
+      case 'completada': return 'Completada';
+      case 'cancelada': return 'Cancelada';
       default: return status;
     }
   };
@@ -34,7 +34,7 @@ const OrderCard = ({ order, onDelete, onUpdateStatus }) => {
       <div className="order-card-body">
         <p><strong>Descripción:</strong> {order.description || 'Sin descripción'}</p>
         <p><strong>Cantidad:</strong> {order.quantity || 1}</p>
-        <p><strong>Proveedor:</strong> {order.supplier || 'No especificado'}</p>
+        <p><strong>Proveedor:</strong> {order.supplier_name || 'No especificado'}</p>
       </div>
 
       <div className="order-card-actions">
@@ -43,10 +43,10 @@ const OrderCard = ({ order, onDelete, onUpdateStatus }) => {
           onChange={(e) => onUpdateStatus(order.id, e.target.value)}
           className="status-select"
         >
-          <option value="pending">Pendiente</option>
-          <option value="processing">En proceso</option>
-          <option value="completed">Completada</option>
-          <option value="cancelled">Cancelada</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="en_proceso">En proceso</option>
+          <option value="completada">Completada</option>
+          <option value="cancelada">Cancelada</option>
         </select>
         <button className="btn-delete" onClick={() => onDelete(order.id)}>
           Eliminar

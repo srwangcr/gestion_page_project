@@ -70,3 +70,31 @@
   text-align: center;
   padding: 30px;
 }
+
+.activity-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  background-color: #1a1a1a;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.activity-item:last-child {
+  margin-bottom: 0;
+}
+
+.activity-name {
+  color: #d2b48c;
+  font-weight: 500;
+}
+
+.activity-status {
+  background-color: #5d4037;
+  color: #d2b48c;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  text-transform: capitalize;
+}

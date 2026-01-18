@@ -4,10 +4,10 @@ import './OrderFilters.css';
 const OrderFilters = ({ filter, setFilter }) => {
   const filters = [
     { value: 'all', label: 'Todas' },
-    { value: 'pending', label: 'Pendientes' },
-    { value: 'processing', label: 'En proceso' },
-    { value: 'completed', label: 'Completadas' },
-    { value: 'cancelled', label: 'Canceladas' },
+    { value: 'pendiente', label: 'Pendientes' },
+    { value: 'en_proceso', label: 'En proceso' },
+    { value: 'completada', label: 'Completadas' },
+    { value: 'cancelada', label: 'Canceladas' },
   ];
 
   return (

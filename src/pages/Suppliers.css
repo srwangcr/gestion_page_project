@@ -1,0 +1,18 @@
+/* Estilos para la página de Proveedores */
+.suppliers-container {
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.suppliers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.suppliers-header h1 {
+  color: #d2b48c;
+  margin: 0;
+}

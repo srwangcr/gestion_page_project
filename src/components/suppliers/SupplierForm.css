@@ -1,0 +1,54 @@
+/* Estilos para SupplierForm */
+.supplier-form {
+  width: 100%;
+}
+
+.supplier-form .form-group {
+  margin-bottom: 20px;
+}
+
+.supplier-form label {
+  display: block;
+  color: #8d6e63;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.supplier-form input,
+.supplier-form textarea {
+  width: 100%;
+  padding: 12px;
+  background-color: #1a1a1a;
+  border: 1px solid #5d4037;
+  border-radius: 5px;
+  color: #d2b48c;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.supplier-form input:focus,
+.supplier-form textarea:focus {
+  outline: none;
+  border-color: #8d6e63;
+}
+
+.supplier-form textarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.supplier-form .btn-submit {
+  width: 100%;
+  padding: 12px;
+  background-color: #3e2723;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.supplier-form .btn-submit:hover {
+  background-color: #5d4037;
+}

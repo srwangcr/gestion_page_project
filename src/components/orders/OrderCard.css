@@ -1,0 +1,96 @@
+/* Estilos para OrderCard */
+.order-card {
+  background-color: #2c2c2c;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border-left: 4px solid #5d4037;
+}
+
+.order-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.order-card-header h3 {
+  color: #d2b48c;
+  margin: 0;
+}
+
+.order-status {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.status-pending {
+  background-color: #ff9800;
+  color: #1a1a1a;
+}
+
+.status-processing {
+  background-color: #2196f3;
+  color: #ffffff;
+}
+
+.status-completed {
+  background-color: #4caf50;
+  color: #ffffff;
+}
+
+.status-cancelled {
+  background-color: #f44336;
+  color: #ffffff;
+}
+
+.order-card-body {
+  margin-bottom: 15px;
+}
+
+.order-card-body p {
+  color: #8d6e63;
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+.order-card-body p strong {
+  color: #d2b48c;
+}
+
+.order-card-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+}
+
+.status-select {
+  background-color: #1a1a1a;
+  color: #d2b48c;
+  border: 1px solid #5d4037;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.status-select:focus {
+  outline: none;
+  border-color: #8d6e63;
+}
+
+.btn-delete {
+  background-color: #5d4037;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-delete:hover {
+  background-color: #8d6e63;
+}

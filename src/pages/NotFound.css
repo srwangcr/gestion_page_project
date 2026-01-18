@@ -1,0 +1,41 @@
+/* Estilos para la página 404 */
+.notfound-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  text-align: center;
+  padding: 30px;
+}
+
+.notfound-container h1 {
+  font-size: 8rem;
+  color: #3e2723;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.notfound-container h2 {
+  color: #d2b48c;
+  font-size: 2rem;
+  margin: 10px 0;
+}
+
+.notfound-container p {
+  color: #8d6e63;
+  margin-bottom: 30px;
+}
+
+.btn-home {
+  background-color: #3e2723;
+  color: #ffffff;
+  padding: 12px 30px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.btn-home:hover {
+  background-color: #5d4037;
+}

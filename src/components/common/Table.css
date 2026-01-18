@@ -1,0 +1,22 @@
+/* Estilos para la tabla */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #2c2c2c; /* Negro más claro */
+  color: #d2b48c; /* Café claro */
+}
+
+.custom-table th, .custom-table td {
+  border: 1px solid #5d4037;
+  padding: 10px;
+  text-align: left;
+}
+
+.custom-table th {
+  background-color: #3e2723; /* Café oscuro */
+  color: #ffffff; /* Blanco */
+}
+
+.custom-table tr:nth-child(even) {
+  background-color: #1a1a1a; /* Negro */
+}

@@ -1,0 +1,30 @@
+/* Estilos para las tareas */
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2c2c2c; /* Negro más claro */
+  color: #d2b48c; /* Café claro */
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.task.completed {
+  text-decoration: line-through;
+  color: #8d6e63; /* Café más claro */
+}
+
+.task button {
+  background-color: #3e2723; /* Café oscuro */
+  color: #ffffff; /* Blanco */
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.task button:hover {
+  background-color: #5d4037; /* Café más claro */
+}

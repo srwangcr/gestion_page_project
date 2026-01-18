@@ -1,0 +1,29 @@
+/* Estilos para OrderFilters */
+.order-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  background-color: #2c2c2c;
+  color: #8d6e63;
+  border: 1px solid #5d4037;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.filter-btn:hover {
+  background-color: #3e2723;
+  color: #d2b48c;
+}
+
+.filter-btn.active {
+  background-color: #5d4037;
+  color: #ffffff;
+  border-color: #5d4037;
+}

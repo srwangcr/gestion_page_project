@@ -1,0 +1,13 @@
+/* Estilos para el input */
+input {
+  background-color: #2c2c2c; /* Negro más claro */
+  color: #d2b48c; /* Café claro */
+  border: 1px solid #5d4037;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #8d6e63; /* Café más claro */
+}

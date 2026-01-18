@@ -1,0 +1,47 @@
+# Sistema de Gestión de Pedidos
+
+## Descripción
+Sistema web para gestionar pedidos a proveedores, con autenticación de usuarios y panel administrativo.
+
+## Tech Stack
+- Frontend: React + Tailwind
+- Backend: FastAPI (Python)
+- Base de Datos: PostgreSQL
+- Deploy: Vercel + Railway
+
+## Features
+- Autenticación JWT
+- CRUD completo de proveedores y pedidos
+- Dashboard con filtros y búsqueda
+- Exportación a Excel
+- Diseño responsive
+
+## Screenshots
+[Agregar 3-4 capturas de pantalla]
+
+## Instalación Local
+[Paso a paso para correrlo]
+
+## Demo en Vivo
+[Link al proyecto deployado]
+```
+
+**Durante el desarrollo**:
+- Commits descriptivos en Git: "feat: add provider CRUD", "fix: auth validation"
+- Branches: `main`, `develop`, `feature/auth`, `feature/providers`
+- Pull requests a ti mismo (muestra profesionalismo)
+
+### Cómo Mencionarlo en el CV
+
+**En sección "Professional Experience"**:
+```
+Sistema de Gestión de Pedidos (Full-Stack Development)
+○ Desarrollé aplicación web para gestionar pedidos a proveedores con autenticación 
+  de usuarios y panel administrativo
+○ Implementé frontend en React con diseño responsive usando Tailwind CSS, logrando 
+  interfaz intuitiva para gestión de 50+ proveedores simultáneos  
+○ Diseñé e implementé RESTful API con FastAPI (Python) y PostgreSQL, incluyendo 
+  validaciones de seguridad contra inyección SQL y XSS
+○ Deployé aplicación en producción usando Vercel y Railway, con CI/CD automático 
+  vía GitHub Actions
+○ Tecnologías: React, FastAPI, PostgreSQL, JWT, Docker, Git

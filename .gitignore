@@ -6,7 +6,15 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+# ...existing code...
 
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+backend/src/.env
+
+# ...existing code...
 node_modules
 dist
 dist-ssr

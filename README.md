@@ -63,7 +63,7 @@ Sistema web full-stack diseñado para gestionar órdenes de compra y proveedores
 ## 📁 Estructura del Proyecto
 
 ```
-my_girl/
+proyect1
 ├── 📂 public/
 │   └── index.html
 ├── 📂 src/

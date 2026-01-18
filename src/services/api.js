@@ -78,6 +78,20 @@ const api = {
     });
     return handleResponse(response);
   },
+
+  /**
+   * PATCH request
+   * @param {string} endpoint - Ruta del endpoint
+   * @param {object} data - Datos a enviar
+   */
+  patch: async (endpoint, data) => {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      method: 'PATCH',
+      headers: getAuthHeaders(),
+      body: JSON.stringify(data),
+    });
+    return handleResponse(response);
+  },
 };
 
 /**

@@ -14,12 +14,18 @@
   color: #d2b48c;
 }
 
+.navbar-brand a {
+  color: #d2b48c;
+  text-decoration: none;
+}
+
 .navbar-links {
   list-style: none;
   display: flex;
   gap: 20px;
   margin: 0;
   padding: 0;
+  align-items: center;
 }
 
 .navbar-links li a {
@@ -36,6 +42,26 @@
 }
 
 .navbar-links li a.active {
+  background-color: #5d4037;
+  color: #ffffff;
+}
+
+.navbar-links .user-name {
+  color: #8d6e63;
+  font-size: 0.9rem;
+}
+
+.navbar-links .btn-logout {
+  background-color: #3e2723;
+  color: #d2b48c;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.navbar-links .btn-logout:hover {
   background-color: #5d4037;
   color: #ffffff;
 }

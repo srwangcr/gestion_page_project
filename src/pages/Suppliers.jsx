@@ -1,28 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SupplierList from '../components/suppliers/SupplierList';
 import SupplierForm from '../components/suppliers/SupplierForm';
 import Modal from '../components/common/Modal';
+import api from '../services/api';
 import './Suppliers.css';
 
 const Suppliers = () => {
   const [suppliers, setSuppliers] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingSupplier, setEditingSupplier] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
-  const handleAddSupplier = (newSupplier) => {
-    if (editingSupplier) {
-      setSuppliers(suppliers.map(s => 
-        s.id === editingSupplier.id ? { ...newSupplier, id: s.id } : s
-      ));
-      setEditingSupplier(null);
-    } else {
-      setSuppliers([...suppliers, { ...newSupplier, id: Date.now() }]);
+  // Cargar proveedores al montar el componente
+  useEffect(() => {
+    loadSuppliers();
+  }, []);
+
+  const loadSuppliers = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get('/suppliers');
+      setSuppliers(response.suppliers || []);
+    } catch (err) {
+      setError('Error al cargar proveedores');
+      console.error(err);
+    } finally {
+      setLoading(false);
     }
-    setIsModalOpen(false);
   };
 
-  const handleDeleteSupplier = (id) => {
-    setSuppliers(suppliers.filter(supplier => supplier.id !== id));
+  const handleAddSupplier = async (newSupplier) => {
+    try {
+      if (editingSupplier) {
+        const response = await api.put(`/suppliers/${editingSupplier.id}`, newSupplier);
+        setSuppliers(suppliers.map(s => 
+          s.id === editingSupplier.id ? response.supplier : s
+        ));
+        setEditingSupplier(null);
+      } else {
+        const response = await api.post('/suppliers', newSupplier);
+        setSuppliers([response.supplier, ...suppliers]);
+      }
+      setIsModalOpen(false);
+    } catch (err) {
+      setError('Error al guardar proveedor');
+      console.error(err);
+    }
+  };
+
+  const handleDeleteSupplier = async (id) => {
+    try {
+      await api.delete(`/suppliers/${id}`);
+      setSuppliers(suppliers.filter(supplier => supplier.id !== id));
+    } catch (err) {
+      setError('Error al eliminar proveedor');
+      console.error(err);
+    }
   };
 
   const handleEditSupplier = (supplier) => {
@@ -35,6 +69,8 @@ const Suppliers = () => {
     setEditingSupplier(null);
   };
 
+  if (loading) return <div className="loading">Cargando proveedores...</div>;
+
   return (
     <div className="suppliers-container">
       <div className="suppliers-header">
@@ -43,6 +79,8 @@ const Suppliers = () => {
           + Nuevo Proveedor
         </button>
       </div>
+
+      {error && <div className="error-message">{error}</div>}
 
       <SupplierList 
         suppliers={suppliers} 
